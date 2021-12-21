@@ -125,7 +125,7 @@ void renderOsdWarning(char *warningText, bool *blinking, uint8_t *displayAttr)
     }
 #endif // USE_DSHOT
     if (osdWarnGetState(OSD_WARNING_FAIL_SAFE) && failsafeIsActive()) {
-        tfp_sprintf(warningText, "FAIL SAFE");
+        tfp_sprintf(warningText, "LOST N SPACE");
         *displayAttr = DISPLAYPORT_ATTR_CRITICAL;
         *blinking = true;;
         return;
@@ -133,7 +133,7 @@ void renderOsdWarning(char *warningText, bool *blinking, uint8_t *displayAttr)
 
     // Warn when in flip over after crash mode
     if (osdWarnGetState(OSD_WARNING_CRASH_FLIP) && isFlipOverAfterCrashActive()) {
-        tfp_sprintf(warningText, "CRASH FLIP");
+        tfp_sprintf(warningText, "YO DID WE FLIP");
         *displayAttr = DISPLAYPORT_ATTR_INFO;
         return;
     }
@@ -163,7 +163,7 @@ void renderOsdWarning(char *warningText, bool *blinking, uint8_t *displayAttr)
 
     // RSSI
     if (osdWarnGetState(OSD_WARNING_RSSI) && (getRssiPercent() < osdConfig()->rssi_alarm)) {
-        tfp_sprintf(warningText, "RSSI LOW");
+        tfp_sprintf(warningText, "RSSI WHAT IS IT");
         *displayAttr = DISPLAYPORT_ATTR_WARNING;
         *blinking = true;;
         return;
@@ -171,7 +171,7 @@ void renderOsdWarning(char *warningText, bool *blinking, uint8_t *displayAttr)
 #ifdef USE_RX_RSSI_DBM
     // rssi dbm
     if (osdWarnGetState(OSD_WARNING_RSSI_DBM) && (getRssiDbm() < osdConfig()->rssi_dbm_alarm)) {
-        tfp_sprintf(warningText, "RSSI DBM");
+        tfp_sprintf(warningText, "RSSI NOISE BAND");
         *displayAttr = DISPLAYPORT_ATTR_WARNING;
         *blinking = true;;
         return;
@@ -181,7 +181,7 @@ void renderOsdWarning(char *warningText, bool *blinking, uint8_t *displayAttr)
 #ifdef USE_RX_LINK_QUALITY_INFO
     // Link Quality
     if (osdWarnGetState(OSD_WARNING_LINK_QUALITY) && (rxGetLinkQualityPercent() < osdConfig()->link_quality_alarm)) {
-        tfp_sprintf(warningText, "LINK QUALITY");
+        tfp_sprintf(warningText, "LQ AINT RIGHT");
         *displayAttr = DISPLAYPORT_ATTR_WARNING;
         *blinking = true;;
         return;
@@ -189,7 +189,7 @@ void renderOsdWarning(char *warningText, bool *blinking, uint8_t *displayAttr)
 #endif // USE_RX_LINK_QUALITY_INFO
 
     if (osdWarnGetState(OSD_WARNING_BATTERY_CRITICAL) && batteryState == BATTERY_CRITICAL) {
-        tfp_sprintf(warningText, " LAND NOW");
+        tfp_sprintf(warningText, "LIKE N SUBSCRIBE");
         *displayAttr = DISPLAYPORT_ATTR_CRITICAL;
         *blinking = true;;
         return;
@@ -201,7 +201,7 @@ void renderOsdWarning(char *warningText, bool *blinking, uint8_t *displayAttr)
        gpsRescueIsConfigured() &&
        !gpsRescueIsDisabled() &&
        !gpsRescueIsAvailable()) {
-        tfp_sprintf(warningText, "RESCUE N/A");
+        tfp_sprintf(warningText, "ON YOUR OWN");
         *displayAttr = DISPLAYPORT_ATTR_WARNING;
         *blinking = true;;
         return;
@@ -295,7 +295,7 @@ void renderOsdWarning(char *warningText, bool *blinking, uint8_t *displayAttr)
 #endif // USE_ESC_SENSOR
 
     if (osdWarnGetState(OSD_WARNING_BATTERY_WARNING) && batteryState == BATTERY_WARNING) {
-        tfp_sprintf(warningText, "LOW BATTERY");
+        tfp_sprintf(warningText, "SLOW VOLTAGE");
         *displayAttr = DISPLAYPORT_ATTR_WARNING;
         *blinking = true;;
         return;
@@ -313,7 +313,7 @@ void renderOsdWarning(char *warningText, bool *blinking, uint8_t *displayAttr)
 
     // Show warning if mah consumed is over the configured limit
     if (osdWarnGetState(OSD_WARNING_OVER_CAP) && ARMING_FLAG(ARMED) && osdConfig()->cap_alarm > 0 && getMAhDrawn() >= osdConfig()->cap_alarm) {
-        tfp_sprintf(warningText, "OVER CAP");
+        tfp_sprintf(warningText, " IS THIS HV BATT");
         *displayAttr = DISPLAYPORT_ATTR_WARNING;
         *blinking = true;;
         return;
@@ -322,14 +322,14 @@ void renderOsdWarning(char *warningText, bool *blinking, uint8_t *displayAttr)
     // Show warning if battery is not fresh
     if (osdWarnGetState(OSD_WARNING_BATTERY_NOT_FULL) && !(ARMING_FLAG(ARMED) || ARMING_FLAG(WAS_EVER_ARMED)) && (getBatteryState() == BATTERY_OK)
           && getBatteryAverageCellVoltage() < batteryConfig()->vbatfullcellvoltage) {
-        tfp_sprintf(warningText, "BATT < FULL");
+        tfp_sprintf(warningText, " CHARGE THIS THING");
         *displayAttr = DISPLAYPORT_ATTR_INFO;
         return;
     }
 
     // Visual beeper
     if (osdWarnGetState(OSD_WARNING_VISUAL_BEEPER) && osdGetVisualBeeperState()) {
-        tfp_sprintf(warningText, "  * * * *");
+        tfp_sprintf(warningText, "  LIKE N SUBSCRIBE");
         *displayAttr = DISPLAYPORT_ATTR_INFO;
         return;
     }
